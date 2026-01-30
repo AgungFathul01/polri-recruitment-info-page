@@ -75,47 +75,47 @@ export function Header() {
       </div>
 
       {/* Mobile Navigation Overlay */}
-      {open && (
-        <div 
-          className="fixed inset-0 top-16 z-40 bg-background/80 backdrop-blur-sm md:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      <div 
+        className={`fixed inset-0 top-16 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setOpen(false)}
+      />
 
       {/* Mobile Navigation Menu */}
       <div
-        className={`fixed right-0 top-16 z-50 h-[calc(100vh-4rem)] w-full transform bg-card shadow-xl transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed right-0 top-16 z-50 h-[calc(100vh-4rem)] w-[280px] max-w-[85vw] transform border-l border-border bg-card shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col p-6">
-          <div className="mb-6 flex items-center gap-3 border-b border-border pb-6">
+        <div className="flex h-full flex-col overflow-y-auto">
+          <div className="flex items-center gap-3 border-b border-border p-4">
             <Image
               src="https://penerimaan.polri.go.id/assets/front_theme/logo_polri.png"
               alt="Logo Polri"
-              width={48}
-              height={48}
-              className="h-12 w-12 object-contain"
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
             />
             <div>
-              <p className="font-bold text-foreground">Info Penerimaan Polri</p>
-              <p className="text-sm text-muted-foreground">Portal Informasi Resmi</p>
+              <p className="font-semibold text-foreground">Info Penerimaan Polri</p>
+              <p className="text-xs text-muted-foreground">Portal Informasi Resmi</p>
             </div>
           </div>
           
-          <nav className="flex flex-col gap-2">
+          <nav className="flex-1 p-2">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollTo(item.href)}
-                className="flex items-center rounded-lg px-4 py-3 text-left text-foreground transition-colors hover:bg-muted"
+                className="flex w-full items-center rounded-md px-3 py-3 text-left text-sm font-medium text-foreground transition-colors hover:bg-muted active:bg-muted"
               >
                 {item.label}
               </button>
             ))}
           </nav>
           
-          <div className="mt-6 border-t border-border pt-6">
+          <div className="border-t border-border p-4">
             <Button
               className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
               onClick={() => window.open("https://penerimaan.polri.go.id/", "_blank")}

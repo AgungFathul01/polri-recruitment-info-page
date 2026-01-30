@@ -19,8 +19,8 @@ export function ChatWidget() {
               responseTimeText: 'Kami biasanya merespons secepatnya'
             },
             style: {
-              primaryColor: '#854fff',
-              secondaryColor: '#6b3fd4',
+              primaryColor: 'black',
+              secondaryColor: 'black',
               position: 'right',
               backgroundColor: '#ffffff',
               fontColor: '#333333'
