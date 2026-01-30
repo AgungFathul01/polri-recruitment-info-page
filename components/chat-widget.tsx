@@ -49,8 +49,12 @@ export function ChatWidget() {
           
           .n8n-chat-widget .chat-container .chat-interface {
              height: 100% !important;
-             display: flex !important;
+             display: none;
              flex-direction: column !important;
+          }
+          
+          .n8n-chat-widget .chat-container .chat-interface.active {
+             display: flex !important;
           }
 
           .n8n-chat-widget .chat-messages {
