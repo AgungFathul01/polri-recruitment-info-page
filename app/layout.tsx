@@ -12,21 +12,8 @@ export const metadata: Metadata = {
   description: 'Informasi lengkap pendaftaran dan penerimaan anggota Polri tahun 2026. Dapatkan panduan, persyaratan, jadwal, dan tips sukses seleksi Polri.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: 'https://penerimaan.polri.go.id/assets/front_theme/logo_polri.png',
+    apple: 'https://penerimaan.polri.go.id/assets/front_theme/logo_polri.png',
   },
 }
 

@@ -19,13 +19,11 @@ export function ChatWidget() {
               responseTimeText: 'Kami biasanya merespons secepatnya'
             },
             style: {
-              primaryColor: 'black',
-              secondaryColor: 'black',
+              primaryColor: '#854fff',
+              secondaryColor: '#6b3fd4',
               position: 'right',
               backgroundColor: '#ffffff',
-              fontColor: '#333333',
-              chatWindowWidth: '360px',
-              chatWindowHeight: '480px'
+              fontColor: '#333333'
             }
           };
         `}
@@ -34,55 +32,6 @@ export function ChatWidget() {
         src="https://cdn.jsdelivr.net/gh/AgungFathul01/widgetagentpolri@main/chat-widgetagentpolri.js"
         strategy="afterInteractive"
       />
-      <style jsx global>{`
-        /* Desktop styles */
-        .n8n-chat-widget .chat-window,
-        .n8n-chat-widget .chat-container,
-        .n8n-chat-widget [class*="chat-window"],
-        .n8n-chat-widget [class*="chatWindow"],
-        .chat-widget-container,
-        [class*="ChatWidget"],
-        [class*="chat-widget"] {
-          max-width: 360px !important;
-          max-height: 500px !important;
-          width: 360px !important;
-          height: 500px !important;
-        }
-        
-        /* Mobile styles */
-        @media (max-width: 640px) {
-          .n8n-chat-widget .chat-window,
-          .n8n-chat-widget .chat-container,
-          .n8n-chat-widget [class*="chat-window"],
-          .n8n-chat-widget [class*="chatWindow"],
-          .chat-widget-container,
-          [class*="ChatWidget"],
-          [class*="chat-widget"] {
-            max-width: calc(100vw - 32px) !important;
-            max-height: 70vh !important;
-            width: calc(100vw - 32px) !important;
-            height: 70vh !important;
-            right: 16px !important;
-            left: 16px !important;
-            bottom: 80px !important;
-            border-radius: 16px !important;
-          }
-          
-          .n8n-chat-widget,
-          [class*="n8n-chat"] {
-            z-index: 9999 !important;
-          }
-          
-          .n8n-chat-widget button[class*="trigger"],
-          .n8n-chat-widget [class*="launcher"],
-          .n8n-chat-widget [class*="toggle"] {
-            right: 16px !important;
-            bottom: 16px !important;
-            width: 56px !important;
-            height: 56px !important;
-          }
-        }
-      `}</style>
     </>
   );
 }
