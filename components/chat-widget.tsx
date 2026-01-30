@@ -28,6 +28,37 @@ export function ChatWidget() {
           };
         `}
       </Script>
+      <style jsx global>{`
+        .n8n-chat-widget .chat-toggle {
+          z-index: 49 !important;
+        }
+        
+        @media (max-width: 768px) {
+          .n8n-chat-widget .chat-container {
+            width: 100% !important;
+            height: 100% !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            left: 0 !important;
+            top: 0 !important;
+            border-radius: 0 !important;
+            max-width: none !important;
+            max-height: none !important;
+            position: fixed !important;
+          }
+          
+          .n8n-chat-widget .chat-container .chat-interface {
+             height: 100% !important;
+             display: flex !important;
+             flex-direction: column !important;
+          }
+
+          .n8n-chat-widget .chat-messages {
+            flex: 1 !important;
+            height: auto !important;
+          }
+        }
+      `}</style>
       <Script
         src="https://cdn.jsdelivr.net/gh/AgungFathul01/widgetagentpolri@main/chat-widgetagentpolri.js"
         strategy="afterInteractive"
