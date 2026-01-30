@@ -4,6 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
   GraduationCap,
   Shield,
   Anchor,
@@ -13,7 +18,6 @@ import {
   MapPin,
   ArrowRight,
   ChevronDown,
-  ChevronUp,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -149,80 +153,79 @@ function CategoryCard({
         {/* Info Grid */}
         <div className="mb-4 grid grid-cols-2 gap-3">
           <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
-            <GraduationCap className="h-4 w-4 text-muted-foreground" />
+            <GraduationCap className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">
               {category.education}
             </span>
           </div>
           <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">
               {category.duration}
             </span>
           </div>
           <div className="col-span-2 flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
-            <MapPin className="h-4 w-4 text-muted-foreground" />
+            <MapPin className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">
               {category.location}
             </span>
           </div>
         </div>
 
-        {/* Expandable Content */}
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="mb-3 flex w-full items-center justify-between rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted/50"
-          type="button"
-        >
-          <span>Lihat Detail</span>
-          {expanded ? (
-            <ChevronUp className="h-4 w-4" />
-          ) : (
-            <ChevronDown className="h-4 w-4" />
-          )}
-        </button>
+        {/* Collapsible Content */}
+        <Collapsible open={expanded} onOpenChange={setExpanded}>
+          <CollapsibleTrigger asChild>
+            <button
+              className="mb-3 flex w-full items-center justify-between rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm font-medium text-foreground transition-all hover:bg-muted/50 active:scale-[0.98]"
+              type="button"
+            >
+              <span>{expanded ? "Sembunyikan Detail" : "Lihat Detail"}</span>
+              <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+            </button>
+          </CollapsibleTrigger>
 
-        {expanded && (
-          <div className="mb-4 space-y-3 animate-in fade-in slide-in-from-top-2">
-            {/* Sub Categories */}
-            {category.subCategories && (
+          <CollapsibleContent className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2">
+            <div className="mb-4 space-y-4 rounded-lg border border-border bg-muted/20 p-4">
+              {/* Sub Categories */}
+              {category.subCategories && (
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Jalur Tersedia
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {category.subCategories.map((sub) => (
+                      <Badge
+                        key={sub}
+                        variant="outline"
+                        className="text-xs font-normal"
+                      >
+                        {sub}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Requirements */}
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Jalur Tersedia
+                  Persyaratan Utama
                 </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {category.subCategories.map((sub) => (
-                    <Badge
-                      key={sub}
-                      variant="outline"
-                      className="text-xs font-normal"
+                <ul className="space-y-2">
+                  {category.requirements.map((req) => (
+                    <li
+                      key={req}
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
                     >
-                      {sub}
-                    </Badge>
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                      {req}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-            )}
-
-            {/* Requirements */}
-            <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Persyaratan Utama
-              </p>
-              <ul className="space-y-1.5">
-                {category.requirements.map((req) => (
-                  <li
-                    key={req}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                    {req}
-                  </li>
-                ))}
-              </ul>
             </div>
-          </div>
-        )}
+          </CollapsibleContent>
+        </Collapsible>
 
         <Button
           asChild

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Shield, ExternalLink } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
+import Image from "next/image";
 
 const navItems = [
   { label: "Jalur Penerimaan", href: "#info" },
@@ -28,7 +28,13 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <a href="/" className="flex items-center gap-2">
-          <Shield className="h-8 w-8 text-primary" />
+          <Image
+            src="https://penerimaan.polri.go.id/assets/front_theme/logo_polri.png"
+            alt="Logo Polri"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+          />
           <span className="text-lg font-bold text-foreground">Info Polri</span>
         </a>
 
@@ -55,41 +61,69 @@ export function Header() {
             Portal Resmi
           </Button>
 
-          {/* Mobile Navigation */}
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <div className="flex flex-col gap-6 pt-6">
-                <div className="flex items-center gap-2">
-                  <Shield className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Info Polri</span>
-                </div>
-                <nav className="flex flex-col gap-4">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => scrollTo(item.href)}
-                      className="text-left text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </nav>
-                <Button
-                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  onClick={() => window.open("https://penerimaan.polri.go.id/", "_blank")}
-                >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  Portal Resmi
-                </Button>
-              </div>
-            </SheetContent>
-          </Sheet>
+          {/* Mobile Menu Button */}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <span className="sr-only">Toggle menu</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Overlay */}
+      {open && (
+        <div 
+          className="fixed inset-0 top-16 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Mobile Navigation Menu */}
+      <div
+        className={`fixed right-0 top-16 z-50 h-[calc(100vh-4rem)] w-full transform bg-card shadow-xl transition-transform duration-300 ease-in-out md:hidden ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col p-6">
+          <div className="mb-6 flex items-center gap-3 border-b border-border pb-6">
+            <Image
+              src="https://penerimaan.polri.go.id/assets/front_theme/logo_polri.png"
+              alt="Logo Polri"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
+            />
+            <div>
+              <p className="font-bold text-foreground">Info Penerimaan Polri</p>
+              <p className="text-sm text-muted-foreground">Portal Informasi Resmi</p>
+            </div>
+          </div>
+          
+          <nav className="flex flex-col gap-2">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => scrollTo(item.href)}
+                className="flex items-center rounded-lg px-4 py-3 text-left text-foreground transition-colors hover:bg-muted"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+          
+          <div className="mt-6 border-t border-border pt-6">
+            <Button
+              className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+              onClick={() => window.open("https://penerimaan.polri.go.id/", "_blank")}
+            >
+              <ExternalLink className="mr-2 h-4 w-4" />
+              Kunjungi Portal Resmi
+            </Button>
+          </div>
         </div>
       </div>
     </header>

@@ -19,13 +19,11 @@ export function ChatWidget() {
               responseTimeText: 'Kami biasanya merespons secepatnya'
             },
             style: {
-              primaryColor: 'black',
-              secondaryColor: 'black',
+              primaryColor: '#854fff',
+              secondaryColor: '#6b3fd4',
               position: 'right',
               backgroundColor: '#ffffff',
-              fontColor: '#333333',
-              chatWindowWidth: '360px',
-              chatWindowHeight: '480px'
+              fontColor: '#333333'
             }
           };
         `}
@@ -34,20 +32,6 @@ export function ChatWidget() {
         src="https://cdn.jsdelivr.net/gh/AgungFathul01/widgetagentpolri@main/chat-widgetagentpolri.js"
         strategy="afterInteractive"
       />
-      <style jsx global>{`
-        .n8n-chat-widget .chat-window {
-          max-width: 360px !important;
-          max-height: 480px !important;
-          width: 360px !important;
-          height: 480px !important;
-        }
-        .n8n-chat-widget .chat-container,
-        .n8n-chat-widget [class*="chat-window"],
-        .n8n-chat-widget [class*="chatWindow"] {
-          max-width: 360px !important;
-          max-height: 480px !important;
-        }
-      `}</style>
     </>
   );
 }
