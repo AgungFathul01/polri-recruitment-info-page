@@ -1,72 +1,64 @@
 "use client";
 
-import Script from "next/script";
+import { useEffect } from "react";
 
 export function ChatWidget() {
+  useEffect(() => {
+    // Create the script element
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.innerHTML = `
+      import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+      createChat({
+        webhookUrl: 'http://chatbot-penerimaan.polri.go.id/webhook/950b0a85-bd2b-4ba4-91b6-0a4d5b5a5e2d/chat',
+        webhookConfig: {
+          method: 'POST',
+          headers: {}
+        },
+        target: '#n8n-chat',
+        mode: 'window',
+        chatInputKey: 'chatInput',
+        chatSessionKey: 'sessionId',
+        loadPreviousSession: true,
+        metadata: {},
+        showWelcomeScreen: true,
+        defaultLanguage: 'en',
+        initialMessages: [
+          'Hi Sobat Lemdiklat! 👋',
+          'Ada yang bisa kami bantu?'
+        ],
+        i18n: {
+          en: {
+            title: 'Hi Sobat Lemdiklat! 👋',
+            subtitle: "Kami siap membantu Anda.",
+            footer: '',
+            getStarted: 'Mulai Percakapan',
+            inputPlaceholder: 'Ketik pertanyaan Anda..',
+          },
+        },
+        enableStreaming: false,
+      });
+    `;
+
+    // Append to body to ensure it executes after the component renders
+    document.body.appendChild(script);
+
+    // Clean up on unmount
+    return () => {
+      document.body.removeChild(script);
+      // Optional: clean up the widget container's content if needed
+      // but usually the script handles the widget lifecycle.
+    };
+  }, []);
+
   return (
     <>
-      <Script id="chat-widget-config" strategy="afterInteractive">
-        {`
-          window.ChatWidgetConfig = {
-            webhook: {
-              url: 'https://n8n.srv1298842.hstgr.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-              route: 'general'
-            },
-            branding: {
-              logo: 'https://penerimaan.polri.go.id/assets/front_theme/logo_polri.png',
-              name: 'AgentPolri',
-              welcomeText: 'Hi, Ada yang bisa kami bantu?',
-              responseTimeText: 'Kami biasanya merespons secepatnya'
-            },
-            style: {
-              primaryColor: '#854fff',
-              secondaryColor: '#6b3fd4',
-              position: 'right',
-              backgroundColor: '#ffffff',
-              fontColor: '#333333'
-            }
-          };
-        `}
-      </Script>
-      <style jsx global>{`
-        .n8n-chat-widget .chat-toggle {
-          z-index: 49 !important;
-        }
-        
-        @media (max-width: 768px) {
-          .n8n-chat-widget .chat-container {
-            width: 100% !important;
-            height: 100% !important;
-            bottom: 0 !important;
-            right: 0 !important;
-            left: 0 !important;
-            top: 0 !important;
-            border-radius: 0 !important;
-            max-width: none !important;
-            max-height: none !important;
-            position: fixed !important;
-          }
-          
-          .n8n-chat-widget .chat-container .chat-interface {
-             height: 100% !important;
-             display: none;
-             flex-direction: column !important;
-          }
-          
-          .n8n-chat-widget .chat-container .chat-interface.active {
-             display: flex !important;
-          }
-
-          .n8n-chat-widget .chat-messages {
-            flex: 1 !important;
-            height: auto !important;
-          }
-        }
-      `}</style>
-      <Script
-        src="https://cdn.jsdelivr.net/gh/AgungFathul01/widgetagentpolri@main/chat-widgetagentpolri.js"
-        strategy="afterInteractive"
+      <link
+        href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+        rel="stylesheet"
       />
+      <div id="n8n-chat"></div>
     </>
   );
 }
