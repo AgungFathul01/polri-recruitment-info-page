@@ -32,7 +32,7 @@ export function ChatWidget() {
           en: {
             title: 'Hi Sobat Lemdiklat! 👋',
             subtitle: "Kami siap membantu Anda.",
-            footer: '',
+            footer: 'Made by Lemdiklat',
             getStarted: 'Mulai Percakapan',
             inputPlaceholder: 'Ketik pertanyaan Anda..',
           },
@@ -47,8 +47,6 @@ export function ChatWidget() {
     // Clean up on unmount
     return () => {
       document.body.removeChild(script);
-      // Optional: clean up the widget container's content if needed
-      // but usually the script handles the widget lifecycle.
     };
   }, []);
 
@@ -58,6 +56,20 @@ export function ChatWidget() {
         href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
         rel="stylesheet"
       />
+      <style>{`
+        .n8n-chat-widget .chat-footer a {
+          display: none !important;
+        }
+        .n8n-chat-widget .chat-footer::after {
+          content: 'Made by Lemdiklat';
+          display: block;
+          font-size: 11px;
+          color: #999;
+          padding: 8px;
+          text-align: center;
+          width: 100%;
+        }
+      `}</style>
       <div id="n8n-chat"></div>
     </>
   );
